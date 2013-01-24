@@ -1,0 +1,32 @@
+{
+  "name": "jquery.datepicker",
+  "title": "jQuery Datepicker",
+  "description": "The best jQuery plugin ever.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/damian/jquery.datepicker",
+  "author": {
+    "name": "Damian Nicholson",
+    "email": "damian.nicholson21@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/damian/jquery.datepicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/damian/jquery.datepicker/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/damian/jquery.datepicker/blob/master/LICENSE-MIT"
+    },
+    {
+      "type": "GPL",
+      "url": "https://github.com/damian/jquery.datepicker/blob/master/LICENSE-GPL"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~1.8.3"
+  },
+  "keywords": []
+}

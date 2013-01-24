@@ -1,0 +1,6 @@
+.datepicker {
+  display: none;
+}
+.datepicker.active {
+  display: block;
+}
