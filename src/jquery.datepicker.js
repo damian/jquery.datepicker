@@ -66,6 +66,15 @@
       this.$template.find('#months').html(this.monthMenu());
       this.$template.find('#years').html(this.yearMenu());
       this.$datepicker = this.$template.appendTo('body');
+
+      var offset = this.$el.offset(),
+          height = offset.top + this.$el.outerHeight();
+
+      this.$datepicker.css({
+        left: offset.left,
+        top: height
+      });
+
     },
     monthMenu: function() {
       return '<option>' + this.options.months.join('</option><option>') + '</option>';

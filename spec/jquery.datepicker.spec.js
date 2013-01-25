@@ -55,6 +55,36 @@ describe('Datepicker', function() {
     });
   });
 
+  describe('Render', function() {
+    beforeEach(function() {
+      spyOn($.fn, 'html').andCallThrough();
+      spyOn(instance, 'monthMenu').andCallThrough();
+      spyOn(instance, 'yearMenu').andCallThrough();
+      spyOn(instance.$template, 'appendTo').andCallThrough();
+      instance.render();
+    });
+
+    it('should set the HTML of both the months and years dropdown', function() {
+      expect($.fn.html.callCount).toBe(2);
+    });
+
+    it('should call the monthMenu method', function() {
+      expect(instance.monthMenu).toHaveBeenCalled();
+    });
+
+    it('should call the yearMenu method', function() {
+      expect(instance.yearMenu).toHaveBeenCalled();
+    });
+
+    it('should append a datepicker to the body', function() {
+      expect(instance.$template.appendTo).toHaveBeenCalledWith('body');
+    });
+
+    it('should define a property of $datepicker', function() {
+      expect(instance.$datepicker).toBeDefined();
+    });
+  });
+
   describe('Show', function() {
     beforeEach(function() {
       instance.rendered = false;
@@ -62,19 +92,26 @@ describe('Datepicker', function() {
       instance.$el.trigger('focus');
     });
 
-    it('should call the render method on the datepicker instance', function() {
-      expect(instance.render).toHaveBeenCalled();
+    describe('if the datepicker is not already rendered', function() {
+      it('should call the render method on the datepicker instance', function() {
+        expect(instance.render).toHaveBeenCalled();
+      });
+
+      it('should set the render property to true', function() {
+        expect(instance.rendered).toBeTruthy();
+      });
     });
 
-    it('should set the render property to true', function() {
-      expect(instance.rendered).toBeTruthy();
-    });
+    describe('if the datepicker is already rendered', function() {
+      beforeEach(function() {
+        instance.rendered = true;
+        spyOn(instance.$datepicker, 'addClass');
+        instance.$el.trigger('focus');
+      });
 
-    it('should add a class of active if the datepicker has already been rendered', function() {
-      instance.rendered = true;
-      spyOn(instance.$datepicker, 'addClass');
-      instance.$el.trigger('focus');
-      expect(instance.$datepicker.addClass).toHaveBeenCalledWith('active');
+      it('should add a class of active if the datepicker has already been rendered', function() {
+        expect(instance.$datepicker.addClass).toHaveBeenCalledWith('active');
+      });
     });
   });
 
