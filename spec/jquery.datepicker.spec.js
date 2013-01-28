@@ -2,7 +2,9 @@ describe('Datepicker', function() {
   var instance, $date;
   beforeEach(function() {
     $date = $('.date').first();
-    $date.datepicker();
+    if (!$date.data('calendar')) {
+      $date.datepicker();
+    }
     instance = $date.data('calendar');
   });
 
@@ -30,7 +32,7 @@ describe('Datepicker', function() {
 
   describe('Event handlers', function() {
     beforeEach(function() {
-      spyOn(instance.$el, 'on').andCallThrough();
+      spyOn(instance.$el, 'on');
       instance.setupEventHandlers();
     });
 
@@ -117,7 +119,7 @@ describe('Datepicker', function() {
 
   describe('Hide', function() {
     beforeEach(function() {
-      spyOn(instance.$datepicker, 'removeClass');
+      spyOn(instance.$datepicker, 'removeClass').andCallThrough();
       instance.$el.trigger('blur');
     });
 

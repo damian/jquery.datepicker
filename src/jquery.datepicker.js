@@ -50,17 +50,36 @@
     setupEventHandlers: function() {
       this.$el.on('focus', $.proxy(this.show, this));
       this.$el.on('blur', $.proxy(this.hide, this));
+      $.datepicker.$document.on('mousedown', $.proxy(this.documentHandler, this));
+    },
+
+    documentHandler: function(ev) {
+        var $target = $(ev.target),
+            isDatepicker = $target.closest('.datepicker').length;
+
+        if (!isDatepicker) {
+          this.hide();
+        }
     },
     show: function() {
+      this.isOpen = false;
       if (this.rendered) {
         return this.$datepicker.addClass('active');
       }
 
       this.render();
       this.rendered = true;
+
+      var self = this;
+      this.$datepicker.on('mousedown', function(ev) {
+        self.isOpen = true;
+      });
     },
     hide: function(ev) {
-      this.$datepicker.removeClass('active');
+      if (!this.isOpen) {
+        this.$datepicker.removeClass('active');
+      }
+      this.isOpen = false;
     },
     render: function() {
       this.$template.find('#months').html(this.monthMenu());
@@ -106,6 +125,11 @@
         $this.data('calendar', new Datepicker($this));
       }
     });
+  };
+
+  $.datepicker = {
+    $document : $(document),
+    $body : $('body')
   };
 
   /**
